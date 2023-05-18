@@ -1,9 +1,9 @@
 package handler
 
 import (
+	"github.com/prashantgupta24/mac-sleep-notifier/notifier"
 	"github.com/shubhindia/activity-tracker/pkg/activity"
 	"github.com/shubhindia/activity-tracker/pkg/system"
-	"github.com/shubhindia/mac-sleep-notifier/notifier"
 	log "github.com/sirupsen/logrus"
 )
 

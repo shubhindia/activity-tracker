@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/go-vgo/robotgo v1.0.0-rc1
-	github.com/shubhindia/mac-sleep-notifier v0.1.1
+	github.com/prashantgupta24/mac-sleep-notifier v0.1.1
 	github.com/robotn/gohook v0.40.0
 	github.com/sirupsen/logrus v1.4.0
 	github.com/stretchr/testify v1.8.1
