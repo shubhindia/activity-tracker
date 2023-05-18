@@ -5,9 +5,9 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/prashantgupta24/activity-tracker/internal/pkg/handler"
-	"github.com/prashantgupta24/activity-tracker/internal/pkg/logging"
-	"github.com/prashantgupta24/activity-tracker/pkg/system"
+	"github.com/shubhindia/activity-tracker/internal/pkg/handler"
+	"github.com/shubhindia/activity-tracker/internal/pkg/logging"
+	"github.com/shubhindia/activity-tracker/pkg/system"
 )
 
 const (
@@ -23,7 +23,7 @@ const (
 	defaultWInterval = minHInterval
 )
 
-//StartWithHandlers starts the tracker with a set of handlers
+// StartWithHandlers starts the tracker with a set of handlers
 func (tracker *Instance) StartWithHandlers(handlers ...handler.Instance) (heartbeatCh chan *Heartbeat) {
 	logger := logging.NewLoggerLevelFormat(tracker.LogLevel, tracker.LogFormat)
 
@@ -103,24 +103,24 @@ func (tracker *Instance) StartWithHandlers(handlers ...handler.Instance) (heartb
 	return heartbeatCh
 }
 
-//Quit the tracker app
+// Quit the tracker app
 func (tracker *Instance) Quit() {
 	tracker.quit <- struct{}{}
 }
 
-//Start the tracker with all possible handlers
+// Start the tracker with all possible handlers
 func (tracker *Instance) Start() (heartbeatCh chan *Heartbeat) {
 	return tracker.StartWithHandlers(getAllHandlers()...)
 }
 
-//getTrackerSystemState returns a copy of state of the system which is being used by the tracker
+// getTrackerSystemState returns a copy of state of the system which is being used by the tracker
 func (tracker *Instance) getTrackerSystemState() system.State {
 	tracker.mutex.RLock()
 	defer tracker.mutex.RUnlock()
 	return *tracker.state
 }
 
-//updateSystemState updates state of the system which is being used by the tracker
+// updateSystemState updates state of the system which is being used by the tracker
 func (tracker *Instance) updateSystemState(state *system.State) {
 	tracker.mutex.Lock()
 	defer tracker.mutex.Unlock()

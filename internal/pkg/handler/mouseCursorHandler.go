@@ -5,16 +5,16 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/prashantgupta24/activity-tracker/internal/pkg/mouse"
-	"github.com/prashantgupta24/activity-tracker/pkg/activity"
-	"github.com/prashantgupta24/activity-tracker/pkg/system"
+	"github.com/shubhindia/activity-tracker/internal/pkg/mouse"
+	"github.com/shubhindia/activity-tracker/pkg/activity"
+	"github.com/shubhindia/activity-tracker/pkg/system"
 )
 
 const (
 	mouseMoveActivity = activity.MouseCursorMovement
 )
 
-//MouseCursorHandlerStruct is the handler for mouse cursor movements
+// MouseCursorHandlerStruct is the handler for mouse cursor movements
 type MouseCursorHandlerStruct struct {
 	cursurHandlerLogger *log.Entry
 	tickerCh            chan struct{}
@@ -25,7 +25,7 @@ type cursorInfo struct {
 	currentMousePos *mouse.Position
 }
 
-//Start the handler
+// Start the handler
 func (m *MouseCursorHandlerStruct) Start(logger *log.Logger, activityCh chan *activity.Instance) {
 
 	m.tickerCh = make(chan struct{})
@@ -57,12 +57,12 @@ func (m *MouseCursorHandlerStruct) Start(logger *log.Logger, activityCh chan *ac
 	}()
 }
 
-//MouseCursorHandler returns an instance of the struct
+// MouseCursorHandler returns an instance of the struct
 func MouseCursorHandler() *MouseCursorHandlerStruct {
 	return &MouseCursorHandlerStruct{}
 }
 
-//Trigger the handler
+// Trigger the handler
 func (m *MouseCursorHandlerStruct) Trigger(state system.State) {
 	//no point triggering the handler since the system is asleep
 	if state.IsSystemSleep {
@@ -77,12 +77,12 @@ func (m *MouseCursorHandlerStruct) Trigger(state system.State) {
 	}
 }
 
-//Type returns the type of handler
+// Type returns the type of handler
 func (m *MouseCursorHandlerStruct) Type() activity.Type {
 	return mouseMoveActivity
 }
 
-//Close closes the handler
+// Close closes the handler
 func (m *MouseCursorHandlerStruct) Close() {
 	close(m.tickerCh)
 }

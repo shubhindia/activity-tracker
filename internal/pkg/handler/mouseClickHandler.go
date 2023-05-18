@@ -4,8 +4,8 @@ import (
 	hook "github.com/robotn/gohook"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/prashantgupta24/activity-tracker/pkg/activity"
-	"github.com/prashantgupta24/activity-tracker/pkg/system"
+	"github.com/shubhindia/activity-tracker/pkg/activity"
+	"github.com/shubhindia/activity-tracker/pkg/system"
 )
 
 const (

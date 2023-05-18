@@ -3,12 +3,12 @@ package tracker
 import (
 	"time"
 
-	"github.com/prashantgupta24/activity-tracker/internal/pkg/handler"
-	"github.com/prashantgupta24/activity-tracker/pkg/activity"
+	"github.com/shubhindia/activity-tracker/internal/pkg/handler"
+	"github.com/shubhindia/activity-tracker/pkg/activity"
 	log "github.com/sirupsen/logrus"
 )
 
-//add handlers to this function to start with them by default
+// add handlers to this function to start with them by default
 func getAllHandlers() []handler.Instance {
 	return []handler.Instance{
 		handler.MouseClickHandler(), handler.MouseCursorHandler(),
@@ -47,7 +47,7 @@ func (tracker *Instance) validateIntervals() (heartbeatIntervalReturn, workerInt
 	return
 }
 
-//validate all handlers with certain rules
+// validate all handlers with certain rules
 func validateHandlers(handlers ...handler.Instance) []handler.Instance {
 
 	isMachineSleepHandlerPresent := false

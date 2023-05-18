@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"github.com/prashantgupta24/activity-tracker/pkg/activity"
-	"github.com/prashantgupta24/activity-tracker/pkg/system"
-	"github.com/prashantgupta24/mac-sleep-notifier/notifier"
+	"github.com/shubhindia/activity-tracker/pkg/activity"
+	"github.com/shubhindia/activity-tracker/pkg/system"
+	"github.com/shubhindia/mac-sleep-notifier/notifier"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -12,13 +12,13 @@ const (
 	machineWake  = activity.MachineWake
 )
 
-//MachineSleepHanderStruct is a handler for machine sleep/awake related events
+// MachineSleepHanderStruct is a handler for machine sleep/awake related events
 type MachineSleepHanderStruct struct {
 	sleepHandlerLogger *log.Entry
 	quit               chan struct{}
 }
 
-//Start the handler
+// Start the handler
 func (m *MachineSleepHanderStruct) Start(logger *log.Logger, activityCh chan *activity.Instance) {
 	m.quit = make(chan struct{})
 	m.sleepHandlerLogger = logger.WithFields(log.Fields{
@@ -57,20 +57,20 @@ func (m *MachineSleepHanderStruct) Start(logger *log.Logger, activityCh chan *ac
 	}()
 }
 
-//MachineSleepHandler returns an instance of the struct
+// MachineSleepHandler returns an instance of the struct
 func MachineSleepHandler() *MachineSleepHanderStruct {
 	return &MachineSleepHanderStruct{}
 }
 
-//Type returns the type of handler
+// Type returns the type of handler
 func (m *MachineSleepHanderStruct) Type() activity.Type {
 	return machineSleep
 }
 
-//Trigger the handler - empty since it's a push based handler
+// Trigger the handler - empty since it's a push based handler
 func (m *MachineSleepHanderStruct) Trigger(system.State) {}
 
-//Close closes the handler
+// Close closes the handler
 func (m *MachineSleepHanderStruct) Close() {
 	m.quit <- struct{}{}
 }

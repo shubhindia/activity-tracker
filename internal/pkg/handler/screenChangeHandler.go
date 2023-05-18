@@ -6,15 +6,15 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"github.com/go-vgo/robotgo"
-	"github.com/prashantgupta24/activity-tracker/pkg/activity"
-	"github.com/prashantgupta24/activity-tracker/pkg/system"
+	"github.com/shubhindia/activity-tracker/pkg/activity"
+	"github.com/shubhindia/activity-tracker/pkg/system"
 )
 
 const (
 	screenChangeActivity = activity.ScreenChange
 )
 
-//ScreenChangeHandlerStruct is the handler for screen changes
+// ScreenChangeHandlerStruct is the handler for screen changes
 type ScreenChangeHandlerStruct struct {
 	screenHandlerLogger *log.Entry
 	tickerCh            chan struct{}
@@ -25,7 +25,7 @@ type screenInfo struct {
 	currentScreenTitle string
 }
 
-//Start the handler
+// Start the handler
 func (s *ScreenChangeHandlerStruct) Start(logger *log.Logger, activityCh chan *activity.Instance) {
 
 	s.tickerCh = make(chan struct{})
@@ -58,12 +58,12 @@ func (s *ScreenChangeHandlerStruct) Start(logger *log.Logger, activityCh chan *a
 	}()
 }
 
-//ScreenChangeHandler returns an instance of the struct
+// ScreenChangeHandler returns an instance of the struct
 func ScreenChangeHandler() *ScreenChangeHandlerStruct {
 	return &ScreenChangeHandlerStruct{}
 }
 
-//Trigger the handler
+// Trigger the handler
 func (s *ScreenChangeHandlerStruct) Trigger(state system.State) {
 	//no point triggering the handler since the system is asleep
 	if state.IsSystemSleep {
@@ -78,12 +78,12 @@ func (s *ScreenChangeHandlerStruct) Trigger(state system.State) {
 	}
 }
 
-//Type returns the type of handler
+// Type returns the type of handler
 func (s *ScreenChangeHandlerStruct) Type() activity.Type {
 	return screenChangeActivity
 }
 
-//Close closes the handler
+// Close closes the handler
 func (s *ScreenChangeHandlerStruct) Close() {
 	close(s.tickerCh)
 }

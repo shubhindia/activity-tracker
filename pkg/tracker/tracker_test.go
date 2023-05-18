@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/prashantgupta24/activity-tracker/internal/pkg/handler"
-	"github.com/prashantgupta24/activity-tracker/pkg/activity"
-	"github.com/prashantgupta24/activity-tracker/pkg/system"
+	"github.com/shubhindia/activity-tracker/internal/pkg/handler"
+	"github.com/shubhindia/activity-tracker/pkg/activity"
+	"github.com/shubhindia/activity-tracker/pkg/system"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -23,7 +23,7 @@ func TestSuite(t *testing.T) {
 	suite.Run(t, new(TestTracker))
 }
 
-//Run once before all tests
+// Run once before all tests
 func (suite *TestTracker) SetupSuite() {
 	suite.activities = append(suite.activities, activity.MouseClick)
 	suite.activities = append(suite.activities, activity.MouseCursorMovement)
@@ -32,7 +32,7 @@ func (suite *TestTracker) SetupSuite() {
 	suite.activities = append(suite.activities, activity.MachineSleep)
 }
 
-//Run once before each test
+// Run once before each test
 func (suite *TestTracker) SetupTest() {
 	heartbeatInterval := 1 //second
 

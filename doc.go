@@ -4,16 +4,15 @@ at a periodic (configurable) time detailing all the activity changes during that
 to track are monitored by pluggable handlers for those activities and can be added or removed according to
 your needs. An example of an activity is MouseCursorActivity, i.e. whether your mouse cursor was moved or not.
 
-Installation
+# Installation
 
 The library can be installed using:
 
-	go get -u github.com/prashantgupta24/activity-tracker
+	go get -u github.com/shubhindia/activity-tracker
 
-Usage
+# Usage
 
 The usage is as following:
-
 
 	heartbeatInterval := 60 //value always in seconds
 	workerInterval := 5     //seconds
@@ -46,15 +45,13 @@ The usage is as following:
 		}
 	}
 
-
-Output
+# Output
 
 The above code created a tracker with all
 ('Mouse-click', 'Mouse-movement', 'screen-change' and 'machine-sleep') handlers activated.
 
 The heartbeat Interval is set to 60 seconds, i.e. every 60 seconds
 I received a heartbeat which mentioned all activities that were captured.
-
 
 	INFO[2019-03-30T15:52:01-07:00] starting activity tracker with 60s heartbeat and 5s worker Interval...
 
@@ -67,20 +64,19 @@ I received a heartbeat which mentioned all activities that were captured.
 	INFO[2019-03-30T15:53:01-07:00] activityType : machine-sleep times: 1
 	INFO[2019-03-30T15:53:01-07:00] activityType : machine-wake times: 1
 
-
-How it works
+# How it works
 
 There are 2 primary configs required for the tracker to work:
 
-	- HeartbeatInterval
+  - HeartbeatInterval
 
-	The Interval at which you want the heartbeat (in seconds, default 60s)
+    The Interval at which you want the heartbeat (in seconds, default 60s)
 
 and
 
-	- WorkerInterval
+  - WorkerInterval
 
-	The Interval at which you want the checks to happen within a heartbeat (default 60s).
+    The Interval at which you want the checks to happen within a heartbeat (default 60s).
 
 The activity tracker gives you a heartbeat object every 60 seconds, that is based on the
 'HeartbeatInterval'. But there is something else to understand here. In order for the
@@ -113,14 +109,13 @@ you might want to set the 'WorkerInterval' to a low value, so that it keeps quer
 you can set 'WorkerInterval' to a high number (something around 10-15 seconds should do the
 trick). That way, the workers need not be bothered a lot of times within a 'heartbeat'.
 
-
 Note: If the 'WorkerInterval' and the 'HeartbeatInterval' are set the same, then the
 'WorkerInterval' always is started a fraction of a second before the 'HeartbeatInterval'
 kicks in. This is done so that when the 'heartbeat' is going to be generated at the end
 of 'HeartbeatInterval', the worker should have done its job of querying each of the
 handlers before that.
 
-Usecase
+# Usecase
 
 Suppose you want to track Activities A, B and C on your machine, and you want to know
 how many times they occurred every minute.
@@ -140,8 +135,7 @@ to 5 minutes. The 'Start' function of the library gives you a channel which rece
 a 'heartbeat' every 5 minutes, and it has details on whether there was a 'click' in
 those 5 minutes, and if yes, the times the click happened.
 
-
-Components
+# Components
 
 - Heartbeat struct
 
@@ -153,7 +147,6 @@ It is the data packet sent from the tracker library to the user.
 		Time           time.Time                     //heartbeat time
 	}
 
-
 'WasAnyActivity' tells if there was any activity within that time frame
 If there was, then the 'ActivityMap' will tell you what type of activity it was and
 what all times it occurred.
@@ -161,7 +154,7 @@ what all times it occurred.
 The 'Time' field is the time of the Heartbeat sent (not to be confused with
 the activity time, which is the time the activity occurred within the 'heartbeat').
 
-Tracker
+# Tracker
 
 The tracker is the main struct for the library. The fields inside it are:
 
@@ -169,7 +162,6 @@ The tracker is the main struct for the library. The fields inside it are:
 	WorkerInterval    int //the interval at which you want the checks to happen within a heartbeat (in seconds, default 5s)
 	LogLevel          string //info or debug
 	LogFormat         string //text or json
-
 
 'HeartbeatInterval'
 
@@ -187,7 +179,7 @@ The 'WorkerInterval ' value can be set anywhere between 4 seconds - 60 seconds. 
 CANNOT be more than 'HeartbeatInterval' for obvious reasons. Not setting it or setting
 it to anything other than the allowed range will revert it to default of 60s.
 
-State
+# State
 
 The 'system.State' struct captures the current state of the tracker, and the whole system
 in general. It is used by some of the handlers to respond to a certain system state.
@@ -201,7 +193,7 @@ system remains in the sleep state.
 
 Note: It also serves as a way of inter-handler communication.
 
-Types of handlers
+# Types of handlers
 
 There are 2 types of handlers:
 
@@ -222,7 +214,7 @@ It is up to you to define how to implement the handler. Some make sense to be pu
 since it is going to be memory intensive to make the mouse cursor movement handler
 push-based. It made sense to make it 'pull' based.
 
-New pluggable handlers for activities
+# New pluggable handlers for activities
 
 Any new type of handler for an activity can be easily added, it just needs to
 implement the above 'Handler' interface below:
@@ -232,7 +224,6 @@ implement the above 'Handler' interface below:
 	Type() activity.Type
 	Trigger(system.State) //used to activate pull-based handlers
 	Close()
-
 
 It also needs to define what 'type' of activity it is going to
 track (also add the new 'activity' as well if it's a new activity), that's it! It can
@@ -246,7 +237,7 @@ On the other hand, each activity should be tracked by only ONE handler (which ma
 As a fail-safe, if the tracker is started with more than one handler tracking the same
 activity, then only 1 handler will get registered for that activity.
 
-Supported list of activities and their handlers
+# Supported list of activities and their handlers
 
 Currently supported activities are:
 
@@ -263,14 +254,13 @@ Corresponding handlers:
 	screenChangeHandler
 	machineSleepHandler
 
-
 - Mouse click (whether any mouse click happened during the time frame)
 - Mouse cursor movement (whether the mouse cursor was moved during the time frame)
 - Screen change handler (whether the active window was changed)
 - Machine sleep/wake handler (**this is added by default for fail-safe measures**)
 
-Example
+# Example
 
-Check out the example here : https://github.com/prashantgupta24/activity-tracker/blob/master/example/example.go
+Check out the example here : https://github.com/shubhindia/activity-tracker/blob/master/example/example.go
 */
 package main

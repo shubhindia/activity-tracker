@@ -4,12 +4,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/prashantgupta24/activity-tracker/internal/pkg/handler"
-	"github.com/prashantgupta24/activity-tracker/pkg/activity"
-	"github.com/prashantgupta24/activity-tracker/pkg/system"
+	"github.com/shubhindia/activity-tracker/internal/pkg/handler"
+	"github.com/shubhindia/activity-tracker/pkg/activity"
+	"github.com/shubhindia/activity-tracker/pkg/system"
 )
 
-//Instance is an instance of the tracker
+// Instance is an instance of the tracker
 type Instance struct {
 	HeartbeatInterval int //the interval at which you want the heartbeat (in seconds, default 60s)
 	WorkerInterval    int //the interval at which you want the checks to happen within a heartbeat (in seconds, default 5s)
@@ -23,7 +23,8 @@ type Instance struct {
 	handlers          map[activity.Type]handler.Instance
 }
 
-/*Heartbeat is the data packet sent from the tracker to the user.
+/*
+Heartbeat is the data packet sent from the tracker to the user.
 
 WasAnyActivity tells if there was any activity within that time frame
 If there was, then the ActivityMap will tell you what type of activity
